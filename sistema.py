@@ -3,9 +3,13 @@ import funcoes
 menu = """
              ********** MENU **********
 
-             1. Registrar despesas
-             2. Consultar despesas
-             3. Sair
+             1. Registrar despesas avulsas
+             2. Consultar despesas avulsas
+             3. Criar categorias
+             4. Consultar categorias
+             5. Criar orçamentos
+             6. Consultar orçamentos
+             7. Sair
 
              **************************
     """
@@ -24,5 +28,17 @@ while numeroControle != 0:
     elif numeroControle == 2:
         funcoes.listar_despesas()
     elif numeroControle == 3:
+        categoria = input('Informe a nova categoria: ')
+        funcoes.criar_categorias(categoria)
+    elif numeroControle == 4:
+        funcoes.listar_categorias()
+    elif numeroControle == 5:
+        categoria = input('Informe a categoria do orçamento: ')
+        orcamento = float(input('Informe o valor do orçamento: '))
+        descricao = input('Informe a descrição do orçamento: ')
+        funcoes.criar_orcamentos(categoria, orcamento, descricao)
+    elif numeroControle == 6:
+        funcoes.listar_orcamentos()
+    elif numeroControle == 7:
         print('Programa encerrado.')
         numeroControle = 0
