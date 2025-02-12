@@ -3,13 +3,15 @@ import funcoes
 menu = """
              ********** MENU **********
 
-             1. Registrar despesas avulsas
+             1. Cadastrar despesa
              2. Consultar despesas avulsas
-             3. Criar categorias
-             4. Consultar categorias
-             5. Criar orçamentos
-             6. Consultar orçamentos
-             7. Sair
+             3. Cadastrar obra
+             4. Consultar obras
+             5. Criar categorias
+             6. Consultar categorias
+             7. Criar orçamentos
+             8. Consultar orçamentos
+             9. Sair
 
              **************************
     """
@@ -21,24 +23,29 @@ while numeroControle != 0:
     numeroControle = int(input('Digite o número da opção desejada: '))
 
     if numeroControle == 1:
-        descricao = input('Informe a descrição da despesa: ')
-        valor = float(input('Informe o valor da despesa: '))
-        categoria = input('Informe a categoria da despesa: ')
-        funcoes.adicionar_despesas(descricao, valor, categoria)
+        funcoes.adicionar_despesas()
+
     elif numeroControle == 2:
         funcoes.listar_despesas()
+
     elif numeroControle == 3:
-        categoria = input('Informe a nova categoria: ')
-        funcoes.criar_categorias(categoria)
+        funcoes.adicionar_obras()
+
     elif numeroControle == 4:
-        funcoes.listar_categorias()
+        funcoes.listar_obras()
+
     elif numeroControle == 5:
-        categoria = input('Informe a categoria do orçamento: ')
-        orcamento = float(input('Informe o valor do orçamento: '))
-        descricao = input('Informe a descrição do orçamento: ')
-        funcoes.criar_orcamentos(categoria, orcamento, descricao)
+        funcoes.criar_categorias()
+
     elif numeroControle == 6:
-        funcoes.listar_orcamentos()
+        funcoes.listar_categorias()
+
     elif numeroControle == 7:
+        funcoes.criar_orcamentos()
+
+    elif numeroControle == 8:
+        funcoes.listar_orcamentos()
+
+    elif numeroControle == 9:
         print('Programa encerrado.')
         numeroControle = 0
