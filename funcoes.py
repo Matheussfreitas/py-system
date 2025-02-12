@@ -41,14 +41,20 @@ def adicionar_obras():
     servico = input('Informe o serviço a ser realizado: ')
     prioridade = input('Informe a prioridade da obra: ')
 
+    for obra in obras:
+        if obra['cpf_cnpj'] == id:
+            print(f"Erro: Obra com o CPF/CNPJ '{id}' já registrada.")
+            return
+
     obra = {
-        'cpf/cnpj': id,
+        'cpf_cnpj': id,
         'nome': nome,
         'descricao': descricao,
         'tipo_servico': servico,
         'prioridade': prioridade
     }
     obras.append(obra)
+    print(f"Obra '{nome}' cadastrada com sucesso.")
 
 
 def listar_obras():
@@ -57,13 +63,16 @@ def listar_obras():
     else:
         print('\n----- Lista de obras -----')
         for i, obra in enumerate(obras, start=1):
-            print(f"{i}. CPF/CNPJ: {obra['cpf/cnpj']}, Descrição: {obra['descricao']}, Tipo de Serviço: {obra['tipo_servico']}, Prioridade: {obra['prioridade']}")
+            print(f"{i}. CPF/CNPJ: {obra['cpf_cnpj']}, Descrição: {obra['descricao']}, Tipo de Serviço: {obra['tipo_servico']}, Prioridade: {obra['prioridade']}")
             print('-' * 30)
 
 
 def criar_categorias():
     categoria = input('Informe a nova categoria: ')
 
+    if not categoria:
+        print("Erro: A categoria não pode ser vazia.")
+        return    
     if categoria in categorias:
         print(f"Erro: Categoria '{categoria}' já existente.")
         return
@@ -84,27 +93,32 @@ def listar_categorias():
 
 
 def criar_orcamentos():
-    obra = input('Informe o nome da obra: ')
-    descricao = input('Informe a descrição do orçamento: ')
-    orcamento = float(input('Informe o valor do orçamento: '))
+    cpf_cnpj = input('Informe o CPF/CNPJ da obra: ')
 
-    if not obra['cpf/cnpj'] in obras:
-        print(f"Erro: A obra {obra} não está cadastrada.")
+    obra_existente = None
+    for obra in obras:
+        if obra['cpf_cnpj'] == cpf_cnpj:
+            obra_existente = obra
+            break
+
+    if not obra_existente:
+        print(f"Erro: A obra com CPF/CNPJ '{cpf_cnpj}' não está cadastrada.")
         return
-    if obra['cpf/cnpj'] in obras:
-        print(f"Erro: Obra '{obra['nome']}' já possui um orçamento.")
-        return
-    if orcamento <= 0:
+    
+    descricao = input('Informe a descrição do orçamento: ')
+    valor = float(input('Informe o valor do orçamento: '))
+
+    if valor <= 0:
         print("Erro: O valor do orçamento deve ser positivo.")
         return
 
     orcamento = {
-        'obra': obra,
+        'obra': cpf_cnpj,
         'descricao': descricao,
-        'valor': orcamento,
+        'valor': valor,
     }
     orcamentos.append(orcamento)
-    print(f"Orçamento '{descricao}' criado com sucesso para a obra '{obra}', no valor de {orcamento}.")
+    print(f"Orçamento '{descricao}' criado com sucesso para a obra '{obra_existente['nome']}'.")
     
 
 def listar_orcamentos():
@@ -114,15 +128,7 @@ def listar_orcamentos():
     
     print('\n----- Lista de Orçamentos -----')
     for i, orcamento in enumerate(orcamentos, start=1):
-        total_despesas = sum(
-            despesa['valor'] for despesa in despesas
-            if despesa['categoria'] == orcamento['categoria']
-        )
-        saldo = orcamento['orcamento'] - total_despesas
-
-        print(f"{i}. Descrição: {orcamento['descricao']}")
-        print(f"   Categoria: {orcamento['categoria']}")
-        print(f"   Orçamento: R$ {orcamento['orcamento']:.2f}")
-        print(f"   Despesas: R$ {total_despesas:.2f}")
-        print(f"   Saldo: R$ {saldo:.2f}")
+        print(f"{i}. Cliente: {orcamento['obra']}")
+        print(f"   Descrição: {orcamento['descricao']}")
+        print(f"   Valor: R$ {orcamento['valor']:.2f}")
         print('-' * 30)
