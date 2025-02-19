@@ -11,41 +11,44 @@ menu = """
              6. Consultar categorias
              7. Criar orçamentos
              8. Consultar orçamentos
-             9. Sair
+             9. Atualizar status da obra
+             10. Relatório financeiro por obra
+             11. Listar obras atrasadas
+             12. Sair
 
              **************************
     """
 
-numeroControle = -1
+opcao = -1
 
-while numeroControle != 0:
+while opcao != 0:
     print(menu)
-    numeroControle = int(input('Digite o número da opção desejada: '))
+    opcao = int(input('Digite o número da opção desejada: '))
 
-    if numeroControle == 1:
+    if opcao == 1:
         funcoes.adicionar_despesas()
-
-    elif numeroControle == 2:
+    elif opcao == 2:
         funcoes.listar_despesas()
-
-    elif numeroControle == 3:
+    elif opcao == 3:
         funcoes.adicionar_obras()
-
-    elif numeroControle == 4:
+    elif opcao == 4:
         funcoes.listar_obras()
-
-    elif numeroControle == 5:
+    elif opcao == 5:
         funcoes.criar_categorias()
-
-    elif numeroControle == 6:
+    elif opcao == 6:
         funcoes.listar_categorias()
-
-    elif numeroControle == 7:
+    elif opcao == 7:
         funcoes.criar_orcamentos()
-
-    elif numeroControle == 8:
+    elif opcao == 8:
         funcoes.listar_orcamentos()
-
-    elif numeroControle == 9:
-        print('Programa encerrado.')
-        numeroControle = 0
+    elif opcao == '9':
+        funcoes.atualizar_status_obra()
+    elif opcao == '10':
+        funcoes.relatorio_financeiro_obra()
+    elif opcao == '11':
+        funcoes.listar_obras_atrasadas()
+    elif opcao == '12':
+        print('Saindo do sistema...')
+        opcao = 0
+    else:
+        print('Opção inválida. Tente novamente.')
